@@ -1,0 +1,238 @@
+# Bibliotecas de uso geral
+import time
+import pandas as pd
+from datetime import datetime
+import json
+import os
+
+# Biblioteca do SQL
+import mysql.connector
+
+# Biblioteca da IA
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from tensorflow.keras.models import load_model
+
+print("Bibliotecas importadas")
+
+
+
+# Conecta o código aos bancos de dados do projeto
+ConexaoPrevisao = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="Chiovat@123",
+    database="previsao"
+)
+ConexaoHistorico = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="Chiovat@123",
+    database="historico"
+)
+# Cria um cursor para executar as consultas ao SQL
+CursorPrevisao = ConexaoPrevisao.cursor()
+CursorHistorico = ConexaoHistorico.cursor()
+print("Conectado ao SQL")
+
+
+
+
+# Importa o modelo treinado no Google Colab
+load_path = "./ClimaIAErrosValidacao.keras"
+IA = load_model(load_path)
+print("Modelo importado")
+
+
+# Nome das colunas que devem ser coletadas do SQL
+TodasAsColunas_SQL = ["Data", "Hora", "Precipitacao_horario_total_mm", "PA_horaria_nivel_estacao", "PA_max_hora_anterior", "PA_min_hora_anterior", "Radiacao_global", "Temp_ar", "Temp_ponto_orvalho", "Temp_max_hora_anterior", "Temp_min_hora_anterior", "Temp_ponto_orvalho_max_hora_anterior", "Temp_ponto_orvalho_min_hora_anterior", "Umidade_relativa_ar_max_hora_anteior", "Umidade_relativa_ar_min_hora_anterior", "Umidade_relativa_do_ar", "Direcao_horaria_vento_partir_norte", "Velocidade_rajada_vento", "Velocidade_horaria_vento", "Estacao"]
+# Nome das colunas que serão utilizadas pela IA
+TodasAsColunas = ["Precipitacao horario total (mm)","Pressao atmosferica horaria ao nivel da estacao (mB)","Pressao atmosferica maxima na hora anterior (mB)","Pressao atmosferica minima na hora anterior (mB)","Radiacao global (KJ/m2)","Temperatura do ar (C)","Temperatura do ponto de orvalho (C)","Temperatura maxima hora anterior (C)","Temperatura minima hora anterior (C)","Temperatura do ponto de orvalho maximo hora anterior (C)","Temperatura do ponto de orvalho minima hora anterior (C)","Umidade relativa do ar maxima hora anteior(%)","Umidade relativa do ar minima hora anterior (%)","Umidade relativa do ar (%)","Data (Segundos)","VentoX","VentoY","VentoRajadaX","VentoRajadaY"]
+
+
+# Função responsável por inserir uma linha de valores na tabela "Previsão" do SQL
+def InsertLinePrevisao(Valores):
+    Consulta = """
+        INSERT INTO `Previsao` (Data, Hora, Precipitacao_horario_total_mm, PA_horaria_nivel_estacao, PA_max_hora_anterior, PA_min_hora_anterior, Radiacao_global, Temp_ar, Temp_ponto_orvalho, Temp_max_hora_anterior, Temp_min_hora_anterior, Temp_ponto_orvalho_max_hora_anterior, Temp_ponto_orvalho_min_hora_anterior,  Umidade_relativa_ar_max_hora_anteior, Umidade_relativa_ar_min_hora_anterior, Umidade_relativa_do_ar, Direcao_horaria_vento_partir_norte, Velocidade_rajada_vento, Velocidade_horaria_vento, Estacao) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    CursorPrevisao.execute(Consulta, Valores)
+    ConexaoPrevisao.commit()
+
+
+EstacaoDesejada = 'MG-01'
+HorasDesejadas = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+
+while True:
+    # Coleta as 168 ultimas linhas da tabela "Historico", nas linhas onde a Estação escolhida é a 'MG-01' e a hora é XX:00
+    Consulta168 = f"""
+    SELECT Data, Hora, Precipitacao_horario_total_mm, PA_horaria_nivel_estacao, PA_max_hora_anterior, PA_min_hora_anterior, Radiacao_global, Temp_ar, Temp_ponto_orvalho, Temp_max_hora_anterior, Temp_min_hora_anterior, Temp_ponto_orvalho_max_hora_anterior, Temp_ponto_orvalho_min_hora_anterior, Umidade_relativa_ar_max_hora_anteior, Umidade_relativa_ar_min_hora_anterior, Umidade_relativa_do_ar, Direcao_horaria_vento_partir_norte, Velocidade_rajada_vento, Velocidade_horaria_vento, Estacao 
+    FROM `Historico`
+    WHERE Estacao = %s AND Hora IN ({','.join(['%s'] * len(HorasDesejadas))})
+    ORDER BY Data (YYYY-MM-DD) DESC
+    LIMIT 168;
+    """
+    
+    CursorHistorico.execute(Consulta168, [EstacaoDesejada] + HorasDesejadas)
+    rows = CursorHistorico.fetchall()
+    
+    # Cria um dataframe com base nos valores das últimas 168 linhas da tabela
+    DataframeDeUtilizacao = pd.DataFrame(rows, columns=TodasAsColunas_SQL)
+
+    # Inverte a ordem das linhas do dataframe
+    DataframeDeUtilizacao = DataframeDeUtilizacao.iloc[::-1].reset_index(drop=True)
+    
+    print("Dados do SQL coletados e organizados pelo Pandas: ")
+    print(DataframeDeUtilizacao)
+
+    # Descobre se a ultima linha desse dataframe corresponde ás 23:00
+    Hora = DataframeDeUtilizacao.iloc[-1]['Hora']
+
+    if Hora == "23:00":
+        print("Dados coletados suficientes no banco de dados para que uma previsão seja realizada")
+        
+        # Coleta o valor de Status da tabela de "Previsao"
+        CursorPrevisao.execute("SELECT Status FROM Previsao;") 
+        Status = CursorPrevisao.fetchone()[0]
+
+        if Status == 0:
+            print("A previsao ainda não foi realizada pelo modelo")
+            # Converte os valores lidos na tabela "Historico", que estão no padão de coleta das informações, para o padrão aceito pela IA
+            # Converte a coluna de data, que está em dias/meses/anos em segundos
+            DataframeDeUtilizacao["Data"] = pd.to_datetime(DataframeDeUtilizacao["Data"], format='%Y-%m-%d')
+            DataframeDeUtilizacao["Segundos 1"] = DataframeDeUtilizacao["Data"].map(pd.Timestamp.timestamp)
+            # Converte a coluna de horas em segundos
+            DataframeDeUtilizacao["Hora"] = pd.to_datetime(DataframeDeUtilizacao["Hora"], format='%H:%M')
+            DataframeDeUtilizacao["Segundos 2"] = DataframeDeUtilizacao["Hora"].dt.hour * 3600 + DataframeDeUtilizacao["Hora"].dt.minute * 60
+            # Cria uma nova coluna somando os segundos de data e hora
+            DataframeDeUtilizacao["Data (Segundos)"] = DataframeDeUtilizacao["Segundos 1"] + DataframeDeUtilizacao["Segundos 2"]
+            # Remove as colunas antigas de data e hora
+            DataframeDeUtilizacao.drop(columns=['Estacao', 'Data', 'Hora', 'Segundos 1', 'Segundos 2'], inplace=True)
+
+            # Converte as colunas de vento para vetores de vento
+            # Deleta as colunas de velocidade do vento e as atribue as seguintes variáveis
+            VelocidadeDoVento = DataframeDeUtilizacao.pop('Velocidade_horaria_vento').astype(float)
+            VelocidadeRajadaDoVento = DataframeDeUtilizacao.pop('Velocidade_rajada_vento').astype(float)
+            # Realiza a mesma operação para a angulação, porém convertendo a infromação para radianos
+            DirecaoDoVentoRadianos = DataframeDeUtilizacao.pop('Direcao_horaria_vento_partir_norte').astype(float)*np.pi / 180
+            # Calcula os valores de X e Y do vetor do vento
+            DataframeDeUtilizacao['VentoX'] = VelocidadeDoVento*np.cos(DirecaoDoVentoRadianos)
+            DataframeDeUtilizacao['VentoY'] = VelocidadeDoVento*np.sin(DirecaoDoVentoRadianos)
+            # Calcula os valores de X e Y do vetor de rajada do vento
+            DataframeDeUtilizacao['VentoRajadaX'] = VelocidadeRajadaDoVento*np.cos(DirecaoDoVentoRadianos)
+            DataframeDeUtilizacao['VentoRajadaY'] = VelocidadeRajadaDoVento*np.sin(DirecaoDoVentoRadianos)
+            print("Dataframe corrigido para o padrão aceito pela IA: ")
+            print(DataframeDeUtilizacao)
+
+
+            # Define o tipo de normalização a ser utilizado nos dados
+            scaler = StandardScaler()
+
+            # Normaliza os dados coletados
+            DataframeDeUtilizacao[TodasAsColunas] = scaler.fit_transform(DataframeDeUtilizacao[TodasAsColunas])
+            print("Base de dados normalizada: ")
+            print(DataframeDeUtilizacao)
+
+            # Converte os valores para float32
+            DataframeDeUtilizacao = DataframeDeUtilizacao.astype('float32')
+            print("Shape do dataframe atual:", DataframeDeUtilizacao.shape)
+            # Transforma os dados 2D em dados 3D
+            DataframeDeUtilizacao = DataframeDeUtilizacao.values.reshape(-1, 168, 19)
+            print("Shape do novo dataframe:", DataframeDeUtilizacao.shape)
+
+
+            # Prevê as próximas 24 linhas (1 Dia) com base nesses dados
+            Previsao = IA.predict(DataframeDeUtilizacao)
+            print("Previsao realizada com sucesso")
+
+            # Quebra a previsão em um novo CSV
+            DataframePrevisao = pd.DataFrame(np.array(Previsao[0]))
+            DataframePrevisao.columns = TodasAsColunas
+            print("Previsao convertida para um CSV: ")
+            print(DataframePrevisao)
+
+            # Desnormaliza esse CSV
+            DataframePrevisao = pd.DataFrame(scaler.inverse_transform(DataframePrevisao), columns=TodasAsColunas)
+            print("Previsao desnormalizada: ")
+            print(DataframePrevisao)
+
+
+            # Converte os valores de tempo que estão em segundos para valores convencionais (YYYY/MM/DD e HH/MM)
+            DataframePrevisao["Data (YYYY-MM-DD)"] = pd.to_datetime(DataframePrevisao["Data (Segundos)"], unit='s')
+            DataframePrevisao["Data (YYYY-MM-DD)"] = DataframePrevisao["Data (YYYY-MM-DD)"].dt.strftime('%Y/%m/%d')
+            DataframePrevisao["Hora (HH-MM)"] = DataframePrevisao["Data (Segundos)"].apply(lambda x: pd.to_datetime(x, unit='s').strftime('%H-%M'))
+            DataframePrevisao.drop(columns=['Data (Segundos)'], inplace=True)
+            # Converte os vetores de vento para velocidade e angulação do vento
+            DataframePrevisao['Velocidade horaria do vento (m/s)'] = np.sqrt(DataframePrevisao['VentoX']**2 + DataframePrevisao['VentoY']**2)
+            DataframePrevisao['Direcao horaria do vento a partir do norte (gr)'] = np.arctan2(DataframePrevisao['VentoY'], DataframePrevisao['VentoX']) * 180 / np.pi
+            DataframePrevisao['Velocidade rajada vento (m/s)'] = np.sqrt(DataframePrevisao['VentoRajadaX']**2 + DataframePrevisao['VentoRajadaY']**2)
+            DataframePrevisao.drop(columns=['VentoX', 'VentoY', 'VentoRajadaX', 'VentoRajadaY'], inplace=True)
+            print("Dados organizados no padrão de coleta: ")
+            print(DataframePrevisao)
+
+            # Adiciona a coluna de "Estacao" no dataframe novamente
+            DataframeDeUtilizacao['Estacao'] = 'MG-01'
+
+            # Apaga todas as linhas da tabela "Previsao" onde o valor de "Estação" é 'MG-01'
+            ConsultaDelete = "DELETE FROM Previsao WHERE Estacao = %s"
+            CursorPrevisao.execute(ConsultaDelete, (EstacaoDesejada,))
+            ConexaoPrevisao.commit()
+            print('Todas as linhas da tabela "Previsao" foram deletadas')
+
+            # Atribue as informações do dataframe as 24 listas de hora correspondentes a cada hora do dia
+            Horas = [None] * 24
+            for hora in range(24):
+                Horas[hora] = [
+                    DataframePrevisao.loc[hora, 'Data (YYYY-MM-DD)'],
+                    DataframePrevisao.loc[hora, 'Hora (HH-MM)'],
+                    DataframePrevisao.loc[hora, 'Precipitacao horario total (mm)'],
+                    DataframePrevisao.loc[hora, 'Pressao atmosferica horaria ao nivel da estacao (mB)'],
+                    DataframePrevisao.loc[hora, 'Pressao atmosferica maxima na hora anterior (mB)'],
+                    DataframePrevisao.loc[hora, 'Pressao atmosferica minima na hora anterior (mB)'],
+                    DataframePrevisao.loc[hora, 'Radiacao global (KJ/m2)'],
+                    DataframePrevisao.loc[hora, 'Temperatura do ar (C)'],
+                    DataframePrevisao.loc[hora, 'Temperatura do ponto de orvalho (C)'],
+                    DataframePrevisao.loc[hora, 'Temperatura maxima hora anterior (C)'],
+                    DataframePrevisao.loc[hora, 'Temperatura minima hora anterior (C)'],
+                    DataframePrevisao.loc[hora, 'Temperatura do ponto de orvalho maximo hora anterior (C)'],
+                    DataframePrevisao.loc[hora, 'Temperatura do ponto de orvalho minima hora anterior (C)'],
+                    DataframePrevisao.loc[hora, 'Umidade relativa do ar maxima hora anteior(%)'],
+                    DataframePrevisao.loc[hora, 'Umidade relativa do ar minima hora anterior (%)'],
+                    DataframePrevisao.loc[hora, 'Umidade relativa do ar (%)'],
+                    DataframePrevisao.loc[hora, 'Direcao horaria do vento a partir do norte (gr)'],
+                    DataframePrevisao.loc[hora, 'Velocidade rajada vento (m/s)'],
+                    DataframePrevisao.loc[hora, 'Velocidade horaria do vento (m/s)'],
+                    DataframePrevisao.loc[hora, 'Estacao']
+                ]
+
+            # Exibe os valores das variáveis Hora0, Hora1, ..., Hora23
+            for i, Hora in enumerate(Horas):
+                print(f'Hora{i}:', Hora)
+                
+                # Adiciona os valores previstos pelo modelo na tabela "Previsao"
+                InsertLinePrevisao(Hora)
+            
+
+            # Atualiza a variável de status no SQL na tabela "Previsao"
+            Status = 1
+            ConsultaStatus = "UPDATE Previsao SET Status = %s"
+            CursorPrevisao.execute(ConsultaStatus, (Status,))
+            ConexaoPrevisao.commit()
+            
+        else:
+            print("A previsao já foi realizada pelo modelo")
+
+    else:
+        print("Dados coletados insuficientes no banco de dados para que uma previsão seja realizada")
+        
+        # Atualiza a variável de status no SQL na tabela "Previsao"
+        Status = 0
+        ConsultaStatus = "UPDATE Previsao SET Status = %s"
+        CursorPrevisao.execute(ConsultaStatus, (Status,))
+        ConexaoPrevisao.commit()
+
+    # Espera 15 minutos antes de tentar novamente
+    time.sleep(900)
