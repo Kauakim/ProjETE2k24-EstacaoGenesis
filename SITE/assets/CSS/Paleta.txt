@@ -1,0 +1,53 @@
+Guia de Psicologia das Cores
+Vermelho: Paixão, amor, raiva, perigo, alerta
+Laranja: calor, energia, felicidade, entusiasmo
+Verde: natureza, crescimento, saúde, harmonia, dinheiro
+Amarelo: sol, felicidade, alegria, intelecto, cautela
+Azul: calma, confiança, lealdade, sabedoria, mistério
+Roxo: realeza, luxo, criatividade, mistério
+Rosa: inocência, feminilidade, compaixão, amor
+Preto: poder, sofisticação, mistério, mal
+Branco: pureza, inocência, limpeza, paz
+Marrom: rusticidade, confiabilidade, dependência, amizade
+Prata: modernidade, sofisticação, industrial, frio
+Ouro: luxo, riqueza, sucesso, prestígio, glamour
+
+Paleta 1: (Verde vivo)
+color 1 -> #FFFFFF - Texto 
+color 2 -> #13CE67 - Destaques e cores do site
+color 3 -> #15223E - Background
+
+Paleta 2: (Laranja Elegante)
+color 1 -> #FFFFFF
+color 2 -> #F9603E
+color 3 -> #171A21
+
+Paleta 3: (Laranja com roxo leve)
+color 1 -> #FFFFFF
+color 2 -> #FF6B2D
+color 3 -> #4B3F9B
+
+Paleta 4: (Vermelho em prol da Ativa)
+color 1 -> #FFFFFF
+color 2 -> #FF2332
+color 3 -> #24242C
+
+Paleta 5: (Verde leve)
+color 1 -> #FFFFFF
+color 2 -> #B9FF66
+color 3 -> #1F1F1F
+
+Foto usuario
+Foto Logi/Registro
+Foto da estação png + texto na foto }
+
+A melhor solucao para o seu caso de uso é a Estação Genesis.
+
+texto 1 | 
+texto 2 | Foto Estação
+texto 3 |
+
+Texto Kaua
+}
+
+Foto no celular da logo em tela cheia

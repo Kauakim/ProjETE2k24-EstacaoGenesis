@@ -1,0 +1,181 @@
+/*Em breve*/
+:root {
+    /*Paleta 1*/
+    --bg-color-p1: #15223E;
+    --Text-color: #FFF;
+    --destaque-p1: #13CE67;
+    --destaque2-p1: #00ff73;
+    --p1-op: rgba(242, 241, 241, 0.78);
+    --p1-op2: rgba(80, 232, 128, 0.546);
+    --dash-p1: #3fc70d;
+    --line1: rgba(234, 234, 234, 0.867);
+    --line2: #abfa9b;
+    --fundo: #02a64c;
+    --fundo-gradient: linear-gradient(180deg, rgba(0,52,3,1) 0%, rgba(3,147,0,1) 42%, rgba(0,171,2,1) 61%, rgba(0,255,12,1) 100%);
+}
+
+
+/* Inicio */
+body {
+    color: var(--Text-color);
+}
+.vw1 {
+    background-color: var(--destaque-p1);
+}
+.vw2,
+.vw3,
+.vw4,
+.vw5,
+.vw6,
+.vw7 {
+  background-color: var(--bg-color-p1);
+}
+.vw2 .h1 span {
+    color: var(--destaque-p1);
+}
+.vw2 h3,
+.vw2 h5 {
+  color: var(--Text-color);
+  opacity: 0.7;
+}
+.bl-left h4 {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.bl-left h1 {
+    background-image: linear-gradient(
+      45deg,
+      var(--destaque-p1),
+      var(--destaque2-p1),
+      var(--destaque-p1)
+    );
+    background-clip: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bl-left p {
+    color: var(--Text-color);
+    font-size: 1.2rem;
+}
+.bx-midias-sociais .circle:hover {
+    border: 2px solid var(--destaque-p1);
+    fill: var(--destaque-p1);
+    color: var(--destaque-p1);
+}
+.line {
+    background: linear-gradient(90deg, var(--line1) 0, var(--line2) 100%);
+}
+.bx-info span {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.fita-name {
+    color: var(--Text-color);
+}
+.fita-detals {
+    background: linear-gradient(97deg, var(--destaque-p1) 0, var(--destaque2-p1) 100%);
+}
+.ft-nm1 {
+    background: linear-gradient(97deg, var(--destaque-p1) 0, var(--destaque2-p1) 100%);
+  }
+.ft-nm2 {
+    background-color: #b01a1a50;
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(10px);
+}
+.bl-sobreAtiva h4 {
+    color: var(--Text-color);
+}
+.bl-sobreAtiva span {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.plano-fundo {
+    background-color: var(--fundo);
+}
+.box-pontos {
+    background: linear-gradient(135deg, var(--Text-color) 0%, var(--Text-color) 25%, var(--Text-color) 50%, var(--Text-color) 75%, var(--line2) 100%);
+}
+.bloco-left {
+    background: linear-gradient(45deg, var(--destaque-p1), var(--fundo));
+}
+.form-contact-button {
+    background: var(--destaque-p1);
+}
+footer {
+    background-color: var(--fundo);
+}
+.footer-infos a {
+    color: #fff;
+}
+.footer-copy {
+    color: #111;
+    opacity: 60%;
+}
+.vw2 h1 span {
+    color: var(--destaque-p1);
+}
+.bl-left p span {
+    color: var(--destaque2-p1);
+    font-weight: 700;
+}
+
+.bx-1 {
+    border-top: 3px solid var(--destaque2-p1);
+    box-shadow: rgb(0, 0, 0) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+      var(--destaque-p1) 0px 1px 3px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+      rgba(140, 126, 0, 0.116) 0px 16px 16px;
+}
+
+
+/* Dashboard */
+.ct-info {
+    background: linear-gradient(317deg, var(--p1-op) 0%, var(--p1-op2) 100%);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+}
+.bg-dash {
+    background-color: var(--bg-color-p1);
+}
+.bl-infos {
+    background: linear-gradient(90deg, var(--destaque-p1) 0%, var(--destaque2-p1) 100%);
+}
+.Graficos{
+    background: linear-gradient(90deg, var(--destaque2-p1) 0%, var(--destaque-p1) 50%, var(--line2) 100%);
+}
+#Dia, #Hora, #Fonte {
+    color: rgb(0, 0, 0);
+    opacity: 80%;
+}
+#NumeroEstacao {
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+
+/* ChatBot */
+.parede-box {
+    background-color: var(--bg-color-p1);
+}
+.topo span {
+    color: var(--destaque2-p1);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Gemeo Digital */
+.expandable-content {  
+    border-right: 2px solid #000000e3;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    display: none; /* Inicialmente oculto */
+    background: var(--fundo-gradient);
+}
+.back, .back2 {
+    color: rgba(255, 255, 255, 0.74);
+}
+.expandable-content p {
+    color: rgba(255, 255, 255, 0.74);
+    font-weight: 700;
+}

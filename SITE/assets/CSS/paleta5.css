@@ -1,0 +1,178 @@
+/*Em breve*/
+:root {
+    /*Paleta 5*/
+    --bg-color-p5: #222831;
+    --Text-color: #FFF;
+    --destaque-p5: #00FFF5;
+    --destaque2-p5: #06cef1;
+    --p5-op: rgba(242, 241, 241, 0.78);
+    --p5-op2: rgba(80, 232, 199, 0.546);
+    --dash-p5: #0db1c7;
+    --line1: rgba(234, 234, 234, 0.867);
+    --line2: #9bfae8;
+    --fundo-gradient: linear-gradient(180deg, rgb(0, 52, 52) 0%, rgb(0, 137, 147) 42%, rgb(0, 165, 171) 61%, rgb(0, 255, 213) 100%);
+}
+
+
+body {
+    color: var(--Text-color);
+}
+.vw1 {
+    background-color: var(--destaque-p5);
+}
+.vw2,
+.vw3,
+.vw4,
+.vw5,
+.vw6,
+.vw7 {
+  background-color: var(--bg-color-p5);
+}
+.vw2 .h1 span {
+    color: var(--destaque-p5);
+}
+.vw2 h3,
+.vw2 h5 {
+  color: var(--Text-color);
+  opacity: 0.7;
+}
+.bl-left h4 {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.bl-left h1 {
+    background-image: linear-gradient(
+      45deg,
+      var(--destaque2-p5),
+      var(--destaque-p5),
+      var(--destaque2-p5)
+    );
+    background-clip: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bl-left p {
+    color: var(--Text-color);
+}
+.bx-midias-sociais .circle:hover {
+    border: 2px solid var(--destaque-p5);
+    fill: var(--destaque-p5);
+    color: var(--destaque-p5);
+}
+.line {
+    background: linear-gradient(90deg, var(--line1) 0, var(--line2) 100%);
+}
+.bx-info span {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.fita-name {
+    color: var(--Text-color);
+}
+.fita-detals {
+    background: linear-gradient(97deg, var(--destaque-p5) 0, var(--destaque2-p5) 100%);
+}
+.ft-nm1 {
+    background: linear-gradient(97deg, var(--destaque-p5) 0, var(--destaque2-p5) 100%);
+  }
+.ft-nm2 {
+    background-color: #b01a1a50;
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(10px);
+}
+.bl-sobreAtiva h4 {
+    color: var(--Text-color);
+}
+.bl-sobreAtiva span {
+    color: var(--Text-color);
+    opacity: 85%;
+}
+.plano-fundo {
+    background-color: var(--destaque2-p5);
+}
+.box-pontos {
+    background: linear-gradient(135deg, var(--Text-color) 0%, var(--Text-color) 25%, var(--Text-color) 50%, var(--Text-color) 75%, var(--line2) 100%);
+}
+.bloco-left {
+    background: linear-gradient(45deg, var(--destaque-p5), var(--destaque2-p5));
+}
+.form-contact-button {
+    background: var(--destaque-p5);
+}
+footer {
+    background-color: var(--destaque-p5);
+}
+.footer-infos a {
+    color: #fff;
+}
+.footer-copy {
+    color: #111;
+    opacity: 60%;
+}
+.vw2 h1 span {
+    color: var(--destaque-p5);
+}
+.bl-left p span {
+    color: var(--destaque2-p5);
+    font-weight: 700;
+}
+
+.bx-1 {
+    border-top: 3px solid var(--destaque-p5);
+    box-shadow: rgb(0, 0, 0) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+      var(--destaque2-p5) 0px 1px 3px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+      rgba(140, 126, 0, 0.116) 0px 16px 16px;
+}
+
+/* Dashboard */
+.ct-info {
+    background: linear-gradient(317deg, var(--p5-op) 0%, var(--p5-op2) 100%);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+}
+.bg-dash {
+    background-color: var(--bg-color-p5);
+}
+.bl-infos {
+    background: linear-gradient(90deg, var(--destaque-p5) 0%, var(--destaque2-p5) 100%);
+}
+.Graficos{
+    background: linear-gradient(90deg, var(--destaque2-p5) 0%, var(--destaque-p5) 50%, var(--destaque2-p5) 100%);
+}
+#Dia, #Hora, #Fonte {
+    color: rgb(0, 0, 0);
+    opacity: 80%;
+}
+#NumeroEstacao {
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+
+
+/* ChatBot */
+.parede-box {
+    background-color: var(--bg-color-p5);
+}
+.topo span {
+    color: var(--destaque2-p5);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Gemeo Digital */
+.expandable-content {  
+    border-right: 2px solid #000000e3;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    display: none; /* Inicialmente oculto */
+    background: var(--fundo-gradient);
+}
+.back, .back2 {
+    color: rgba(255, 255, 255, 0.74);
+}
+.expandable-content p {
+    color: rgba(255, 255, 255, 0.74);
+    font-weight: 700;
+}
