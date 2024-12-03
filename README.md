@@ -1,106 +1,80 @@
-A Estação Genesis é uma estação meteorológica inovadora desenvolvida pela equipe 3101 para a ProjETE 2K24, a prestigiada feira de projetos da ETE FMC. A estação foi projetada para coletar as informações de um local específico e realizar automaticamente a previsão do tempo, de maneira muito mais confiável, já que essas previsões não dependem das informações coletadas a distâncias consideráveis da região e nem da interpretação humana. Projetada para atender as necessidades do agronegócio, também pode ser utilizada nas mais diversas áreas de atuação, como turismo, transporte e administração pública.
+# Estação Genesis
+![Projeto Finalizado](https://img.shields.io/badge/Status-Finalizado-brightgreen)
+![Licença Não Comercial](https://img.shields.io/badge/Licen%C3%A7a-N%C3%A3o--Comercial-red)
 
-Alimentada via painéis solares e baterias, que não só reduzem os custos operacionais como também tornam a solução mais sustentável, pois promovem uma abordagem ambientalmente consciente, o projeto coleta as informações do tempo de um local, como temperatura, pressão, umidade, velocidade e direção do vento, pluviometria, radiação solar e UV e localização, por meio da utilização dos sensores de altíssima qualidade e precisão fornecidos pela Ativa Soluções, uma das melhores empresas desse tipo de equipamento em todo país. 
+A **Estação Genesis** é uma estação meteorológica inovadora desenvolvida para a **ProjETE 2K24**, uma feira de projetos tecnológicos realizada anualmente pela **ETE FMC**, a primeira escola técnica da América Latina.  
+O projeto foi criado para coletar dados climáticos de forma autônoma, fornecendo previsões meteorológicas precisas e eliminando a dependência de sensores de baixa precisão ou interpretações humanas complexas.  
+Inicialmente projetada para o agronegócio, a Estação Genesis é versátil e pode ser aplicada em turismo, transporte e administração pública, promovendo sustentabilidade, eficiência na gestão de recursos e redução de danos por desastres naturais.
 
-Esses equipamentos são operados na estação meteorológica por um LoRa32 V2 (ESP-32) da Heltec, sendo este o microcontrolador utilizado no produto. Após processadas, as informações adquiridas pelo projeto são então enviadas para um servidor localmente via LoRa (Long Range), por meio de uma arquitetura de transmissão completamente inovadora, a Nova Genesis, projeto que promete solucionar diversos problemas da comunicação como conhecemos.
-
-Ao chegarem no servidor, as informações são utilizadas pela IA do projeto, uma rede neural LSTM desenvolvida em Python com Tensorflow. Com essas previsões realizadas, os dados são finalmente armazenados em um banco de dados MySQL criado pela equipe e então disponibilizados e exibidos no site do projeto via dashboard, gêmeo digital ou chatbot.
-
-
-------------------------------------------------------------------------------------------------------------------------
-
-
-# Estação Genesis 🌦️
-
-A **Estação Genesis** é uma estação meteorológica inovadora desenvolvida pela equipe **3101** para a **ProjETE 2K24**, a prestigiada feira de projetos da **ETE FMC**. O projeto foi criado para fornecer previsões meteorológicas precisas e automáticas, adaptadas às condições específicas de um local, eliminando a dependência de dados de regiões distantes ou de interpretações humanas. 
-
-Embora projetada inicialmente para atender o **agronegócio**, a Estação Genesis é versátil, com aplicações em áreas como **turismo**, **transporte** e **administração pública**.
+![Foto do Grupo com o Projeto](caminho_para_a_imagem_dentro_do_repositório)
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionamento do projeto
 
-1. **Monitoramento meteorológico local**:  
-   Coleta dados ambientais como:
-   - Temperatura
-   - Pressão atmosférica
-   - Umidade relativa do ar
-   - Velocidade e direção do vento
-   - Pluviometria
-   - Radiação solar e UV
-   - Localização
+Alimentada via painéis solares e baterias, que não só reduzem os custos operacionais como também tornam a solução mais sustentável, pois promovem uma abordagem ambientalmente consciente, a **Estação Genesis** coleta as informações do tempo de um local, como temperatura, pressão, umidade, velocidade e direção do vento, pluviometria, radiação solar e UV e localização, por meio da utilização dos sensores de altíssima qualidade e precisão fornecidos pela **Ativa Soluções**, uma das melhores empresas desse tipo de equipamento em todo o país, à equipe.
 
-2. **Previsão do tempo com IA**:  
-   - Utiliza uma rede neural LSTM desenvolvida em Python com TensorFlow para prever condições climáticas com alta precisão.
+Esses equipamentos são operados na estação meteorológica por um **LoRa32 V2** (ESP-32) da Heltec, o microcontrolador escolhido pelo grupo para ser utilizado no produto, responsável por extrair as informações dos sensores citados de uma de três maneiras diferentes: RS485, digital ou por corrente, e processá-las.
 
-3. **Sustentabilidade**:  
-   - Alimentada por **painéis solares** e **baterias**, garantindo eficiência energética e redução de custos operacionais.
+Após processadas, as informações adquiridas pelo projeto são então enviadas para um servidor localmente via LoRa (Long Range), por meio de uma arquitetura de rede alternativa e inovadora, a **Nova Genesis**, projeto desenvolvido no **INATEL** pelo professor **Antônio Marcos Alberti**, que opera no estilo PUB/SUB, no qual os protocolos de rede se descobrem, estabelecem ofertas de serviço e então passam a trabalhar em conjunto para realizarem determinadas funções. Toda essa arquitetura, que ainda conta com o endereçamento baseado no Hash dos dispositivos, a autodescoberta de protocolos e alguns dos conceitos das redes distribuídas, promete solucionar diversos problemas da comunicação como conhecemos, transformando a Estação Genesis, um projeto IoT (Internet of Things), em um projeto FIoT (Future Internet of Things).
 
-4. **Comunicação inovadora com Nova Genesis**:  
-   - Sistema de transmissão baseado em **LoRa (Long Range)** para envio de dados ao servidor.
+Ao chegarem no servidor, as informações são então utilizadas pela IA do projeto, uma rede neural **LSTM** (Long Short Term Memory) desenvolvida em Python com Tensorflow, uma arquitetura similar às LLMs utilizadas nos chats de linguagem humana mais famosos, como o ChatGPT, Gemini e Colab.
 
-5. **Visualização acessível**:  
-   - Dados disponíveis via **dashboard**, **gêmeo digital** ou **chatbot**, oferecendo insights intuitivos.
+Finalizadas todas essas previsões, os dados são finalmente armazenados em um **banco de dados** MySQL criado pela equipe e então disponibilizados e exibidos no site do projeto via **dashboard**, um conjunto de gráficos interativos, **gêmeo digital**, uma simulação virtual da estação meteorológica, na qual os eventos que ocorrem no mundo real influenciam o digital, e vice-versa, facilitando sua manutenção e a preparando para diversas inovações tecnológicas como o Metaverso, ou **chatbot**, desenvolvido a partir do ChatGPT, disponibilizado pela API da OpenAI, que interage com os dados do projeto e responde aos usuários sobre tudo aquilo que quiserem saber acerca da Estação Genesis.
+
+Para saber mais sobre o projeto, acesse o link do diário de bordo da Estação Genesis, documento desenvolvido ao longo de todo o processo de desenvolvimento do projeto pela equipe com fotos, vídeos, arquivos e versões dos códigos utilizados, ou assista ao vídeo gravado pelo grupo.
+- [Diário de Bordo](https://powerful-borogovia-5d3.notion.site/Di-rio-de-Bordo-b80a633d32ad4d6d85510eee0a9d1a12)
+- [Vídeo](https://youtu.be/wb_kGaT5vpk?si=zksXfxjZhVxrBi8B)
 
 ---
 
-## 🧠 Tecnologias Utilizadas
-
-### Hardware:
-- **LoRa32 V2 (ESP-32)**: Microcontrolador principal da estação, fornecido pela Heltec.
-- **Sensores de alta precisão**: Equipamentos fornecidos pela **Ativa Soluções**, capturando dados meteorológicos com confiabilidade superior.
-- **Painéis solares e baterias**: Para operação contínua e sustentável.
+## Tecnologias Utilizadas
 
 ### Software:
-- **Rede neural LSTM**:
-  - Linguagem: Python
-  - Framework: TensorFlow
-  - Finalidade: Previsão meteorológica baseada nos dados coletados.
-- **Banco de dados MySQL**: Armazenamento estruturado dos dados processados.
-- **Dashboard interativo**: Visualização dos dados em tempo real.
-- **Nova Genesis**: Arquitetura de transmissão para comunicação confiável via LoRa.
+- Inteligência Artificial: Rede neural supervisionada LSTM (Long Short Term Memory)
+- NovaGenesis: Arquitetura de rede inovadora e disruptiva
+- LoRa: Comunicação RF de longa distância
+- Interface Web: Dashboard interativo, Gêmeo digital e Chatbot
+- Banco de Dados: MySQL 
+
+### Hardware:
+- Processamento: Heltec LoRa32 V2 (ESP-32)
+- Sensoriamento: Sensores RS485, digital e por corrente
+- Alimentação: Painéis solares, baterias e controlador de carga
+- Proteção: Supressores de surto e fusíveis
+
+### Linguagens e Bibliotecas:
+- Linguagens de Programação: Python, C++, C, HTML5, CSS3, JavaScript, SQL
+- Bibliotecas e Frameworks:
+  IA: TensorFlow, Keras, Scikit-learn
+  Análise de Dados: Pandas, NumPy, Matplotlib
+  Big Data e Visualização: ApexCharts, Three.js
+  Chatbot: OpenAI
+- Protocolos e Tecnologias: RS485, LoRa
 
 ---
 
-## 🛠️ Arquitetura do Sistema
+## Reconhecimentos
 
-1. **Coleta de dados**:  
-   - Sensores capturam informações meteorológicas específicas do local.
-   
-2. **Processamento no microcontrolador**:  
-   - O **LoRa32 V2 (ESP-32)** processa e transmite os dados via LoRa.
-
-3. **Transmissão de dados**:  
-   - Uso da arquitetura **Nova Genesis** para comunicação local, eficiente e confiável.
-
-4. **Análise e previsão**:  
-   - A IA baseada em LSTM processa os dados para gerar previsões climáticas.
-
-5. **Armazenamento e exibição**:  
-   - Informações armazenadas em um banco de dados MySQL e exibidas em um **site interativo**.
+A **Estação Genesis** recebeu destaque na **ProjETE 2K24**, conquistando os prêmios:
+- **Projeto Empreendedor da FAI**: Inovação e viabilidade comercial
+- **Melhor Projeto de Telecomunicações**: Impacto tecnológico
+- **Projeto Inovação Municipal**: Desenvolvimento local sustentável
 
 ---
 
-## 🌍 Impacto
+## Fundadores
 
-A **Estação Genesis** promove uma abordagem sustentável e tecnológica para a previsão meteorológica, atendendo demandas críticas de setores variados, como:
-- **Agronegócio**: Otimização de plantio e colheita com base em previsões precisas.
-- **Transporte**: Planejamento logístico mais eficiente.
-- **Turismo**: Previsões climáticas locais para melhorar a experiência do visitante.
-- **Administração pública**: Gestão de recursos e prevenção de desastres naturais.
-
----
-
-## 🏆 Reconhecimentos
-
-Desenvolvida para a **ProjETE 2K24**, a **Estação Genesis** já se destaca como um exemplo de inovação e tecnologia aplicada.
+- **Julio Cesar** - Desenvolvedor front-end  
+  [LinkedIn](https://www.linkedin.com/in/julio-cesar-magalhães-3a3542277/) | [GitHub](https://github.com/PkJulioETE)  
+- **Kauã Ribeiro** - Líder - Desenvolvedor back-end e IA  
+  [LinkedIn](https://www.linkedin.com/in/kaua-ribeiro17/) | [GitHub](https://github.com/Kauakim)  
+- **Victor Alberti** - Inovação - Desenvolvedor NovaGenesis e LoRa  
+  [LinkedIn](https://www.linkedin.com/in/victor-alexandre-de-jesus-alberti-328686288/) | [GitHub](https://github.com/Scalifax)  
+- **Samuel Vono** - Desenvolvedor MySQL  
+  [LinkedIn](https://www.linkedin.com/in/samuel-vono/) | [GitHub](https://github.com/Samelkk)  
 
 ---
 
-## 📬 Contato
-
-Para mais informações, entre em contato com a equipe **3101** ou visite nosso site oficial (em breve).
-
----
-
-**Equipe 3101 | ETE FMC | ProjETE 2K24**  
+**Agradecimentos**  
+O projeto contou com o apoio da **Ativa Soluções**, que forneceu equipamentos de alta precisão, e da **ETE-FMC**, com orientação dos professores **Alan Lemes** e **Ana Letícia Gomes Gonçalves**.  
