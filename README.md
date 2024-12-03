@@ -6,7 +6,11 @@ A **Estação Genesis** é uma estação meteorológica inovadora desenvolvida p
 O projeto foi criado para coletar dados climáticos de forma autônoma, fornecendo previsões meteorológicas precisas e eliminando a dependência de sensores de baixa precisão ou interpretações humanas complexas.  
 Inicialmente projetada para o agronegócio, a Estação Genesis é versátil e pode ser aplicada em turismo, transporte e administração pública, promovendo sustentabilidade, eficiência na gestão de recursos e redução de danos por desastres naturais.
 
-![Foto do Grupo com o Projeto](caminho_para_a_imagem_dentro_do_repositório)
+</br>
+<div align="center">
+  <img src="./FotoProjetoEquipe.png" alt="Foto do Grupo com o Projeto" width="600">
+</div>
+</br>
 
 ---
 
