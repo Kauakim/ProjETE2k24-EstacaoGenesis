@@ -50,10 +50,10 @@ Para saber mais sobre o projeto, acesse o link do diário de bordo da Estação 
 ### Linguagens e Bibliotecas:
 - Linguagens de Programação: Python, C++, C, HTML5, CSS3, JavaScript, SQL
 - Bibliotecas e Frameworks:
-  IA: TensorFlow, Keras, Scikit-learn
-  Análise de Dados: Pandas, NumPy, Matplotlib
-  Big Data e Visualização: ApexCharts, Three.js
-  Chatbot: OpenAI
+  - IA: TensorFlow, Keras, Scikit-learn
+  - Análise de Dados: Pandas, NumPy, Matplotlib
+  - Big Data e Visualização: ApexCharts, Three.js
+  - Chatbot: OpenAI
 - Protocolos e Tecnologias: RS485, LoRa
 
 ---
