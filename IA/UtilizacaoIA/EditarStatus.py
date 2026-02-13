@@ -9,8 +9,6 @@ def conecta_banco():
         database='previsao'
     )
 
-
-
 def LerStatus():
     conexao = conecta_banco()
     cursor = conexao.cursor()
@@ -34,8 +32,6 @@ def LerStatus():
     cursor.close()
     conexao.close()
 
-
-
 def TrocarStatus():
     conexao = conecta_banco()
     cursor = conexao.cursor()
@@ -54,7 +50,6 @@ def TrocarStatus():
     # Fecha a conexão
     cursor.close()
     conexao.close()
-
 
 # Executa as funções
 LerStatus()

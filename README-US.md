@@ -58,12 +58,25 @@ To learn more about the project, visit the Genesis Station's logbook link, a doc
 
 ---
 
+## Repository Structure
+
+Due to the project’s size and the large number of files involved, the repository was organized into four main directories to improve documentation, navigation, and maintenance on GitHub:
+
+- IA: Contains all code related to the artificial intelligence of Estação Genesis, divided into TreinamentoLocal, which includes the scripts and datasets used to train the neural networks, and UtilizacaoIA, responsible for applying these trained models.
+- NG: Contains the codes of NovaGenesis, organized into three subfolders. Station holds the code executed on the ESP32 LoRa of the physical station, Gateway includes the code for the ESP32 LoRa responsible for receiving the station’s data, and PC contains the execution of NovaGenesis on the local server, with each of these subfolders documented individually.
+- SITE: Includes the entire structure and files responsible for the project’s website.
+- SQL: Gathers the query, insertion, and deletion scripts used in Estação Genesis tests, as well as the queries required to create the database tables.
+
+---
+
 ## Achievements
 
 The **Genesis Station** was highlighted at **ProjETE 2K24**, winning the awards:
 - **FAI Entrepreneurial Project**: Innovation and commercial viability
 - **Best Telecommunications Project**: Technological impact
 - **Municipal Innovation Project**: Sustainable local development
+
+The project also had the honor of being mentioned in the article "Applying NovaGenesis: A service-oriented, self-organizing, and programmable IoT architecture for LoRa and Wi‑Fi‑based environmental monitoring", coordinated by Professor Antônio Marcos Alberti, in which it was used as a practical demonstration of the capabilities of NovaGenesis in a real-world scenario, being the first project to employ the technology for several consecutive days under high data traffic and, during the week of its presentation, likely the only environment in the entire Southern Hemisphere operating continuously with such a disruptive and innovative network architecture.
 
 ---
 

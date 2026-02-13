@@ -58,12 +58,25 @@ Para saber mais sobre o projeto, acesse o link do diário de bordo da Estação 
 
 ---
 
+## Estrutura do Repositório
+
+Devido à dimensão do projeto e à quantidade de arquivos envolvidos, o repositório foi organizado em quatro diretórios principais para facilitar a documentação, navegação e manutenção no GitHub:
+
+- IA: Reúne todos os códigos relacionados à inteligência artificial da Estação Genesis, divididos entre TreinamentoLocal, com os scripts e bases de dados utilizados no treinamento das redes neurais, e UtilizacaoIA, responsável pela utilização destes modelos.
+- NG: Contém os códigos da NovaGenesis, organizados em três subpastas. Station abriga o código executado no ESP32 LoRa da estação física, Gateway reúne os códigos do ESP32 LoRa responsável por receber os dados da estação e PC contém a execução da NovaGenesis no servidor local, com cada uma dessas subpastas documentadas individualmente.
+- SITE: Inclui toda a estrutura e os arquivos responsáveis pelo site do projeto.
+- SQL: Reúne os scripts de consulta, inserção e exclusão utilizados nos testes da Estação Genesis, além das queries necessárias para a criação das tabelas do banco de dados.
+
+---
+
 ## Reconhecimentos
 
 A **Estação Genesis** recebeu destaque na **ProjETE 2K24**, conquistando os prêmios:
 - **Projeto Empreendedor da FAI**: Inovação e viabilidade comercial
 - **Melhor Projeto de Telecomunicações**: Impacto tecnológico
 - **Projeto Inovação Municipal**: Desenvolvimento local sustentável
+
+O projeto ainda teve a honra de ser mencionado no artigo "Applying NovaGenesis: A service-oriented, self-organizing, and programmable IoT architecture for LoRa and Wi-Fi-based environmental monitoring", coordenado pelo professor Antônio Marcos Alberti, no qual foi utilizado como demonstração prática da capacidade da NovaGenesis em um cenário real, sendo o primeiro projeto a empregar a tecnologia por vários dias consecutivos sob alto tráfego de informações e, na semana da apresentação, provavelmente o único ambiente em todo o hemisfério sul a operar continuamente com uma arquitetura de rede disruptiva e inovadora.
 
 ---
 
